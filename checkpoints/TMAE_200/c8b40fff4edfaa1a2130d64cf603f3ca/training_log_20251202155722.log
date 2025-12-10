@@ -1,0 +1,33 @@
+2025-12-02 15:57:22,050 - easytorch-training - INFO - Initializing training.
+2025-12-02 15:57:22,050 - easytorch-training - INFO - Set clip grad, param: {'max_norm': 5.0}
+2025-12-02 15:57:22,050 - easytorch-training - INFO - Building training data loader.
+2025-12-02 15:57:22,101 - easytorch-training - INFO - Set optim: Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: [0.9, 0.95]
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: False
+    lr: 0.001
+    maximize: False
+    weight_decay: 0
+)
+2025-12-02 15:57:22,102 - easytorch-training - INFO - Set lr_scheduler: <torch.optim.lr_scheduler.MultiStepLR object at 0x7fcdeb2983a0>
+2025-12-02 15:57:22,104 - easytorch-training - INFO - Initializing validation.
+2025-12-02 15:57:22,104 - easytorch-training - INFO - Building val data loader.
+2025-12-02 15:57:22,207 - easytorch-training - INFO - Epoch 1 / 200
+2025-12-02 15:57:23,467 - easytorch-training - ERROR - Traceback (most recent call last):
+  File "/root/miniconda3/lib/python3.10/site-packages/easytorch/launcher/launcher.py", line 30, in training_func
+    runner.train(cfg)
+  File "/root/miniconda3/lib/python3.10/site-packages/easytorch/core/runner.py", line 351, in train
+    loss = self.train_iters(epoch, iter_index, data)
+  File "/root/autodl-tmp/code/STD-MAE/basicts/runners/base_tsf_runner.py", line 249, in train_iters
+    loss = self.metric_forward(self.loss, forward_return)
+  File "/root/autodl-tmp/code/STD-MAE/basicts/runners/base_tsf_runner.py", line 219, in metric_forward
+    metric_item = metric_func(*args, null_val=self.null_val)
+  File "/root/autodl-tmp/code/STD-MAE/basicts/metrics/mae.py", line 27, in masked_mae
+    loss = torch.abs(preds-labels)
+RuntimeError: The size of tensor a (12) must match the size of tensor b (2016) at non-singleton dimension 3
+

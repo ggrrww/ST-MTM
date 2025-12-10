@@ -1,0 +1,75 @@
+DESCRIPTION: TMAE(PEMS04) configuration
+RUNNER: <class 'stdmae.stdmae_runner.mask_runner.MaskRunner'>
+DATASET_CLS: <class 'basicts.data.dataset.TimeSeriesForecastingDataset'>
+DATASET_NAME: PEMS04
+DATASET_TYPE: Traffic flow
+DATASET_INPUT_LEN: 864
+DATASET_OUTPUT_LEN: 12
+GPU_NUM: 1
+ENV:
+  SEED: 0
+  CUDNN:
+    ENABLED: True
+MODEL:
+  NAME: TMAE
+  ARCH: <class 'stdmae.stdmae_arch.mask.mask.Mask'>
+  PARAM:
+    patch_size: 12
+    in_channel: 1
+    embed_dim: 96
+    num_heads: 4
+    mlp_ratio: 4
+    dropout: 0.1
+    mask_ratio: 0.25
+    encoder_depth: 4
+    decoder_depth: 1
+    week: 4
+    spatial: False
+    mode: pre-train
+  FORWARD_FEATURES: [0]
+  TARGET_FEATURES: [0]
+TRAIN:
+  LOSS: masked_mae
+  OPTIM:
+    TYPE: Adam
+    PARAM:
+      lr: 0.001
+      weight_decay: 0
+      eps: 1e-08
+      betas: [0.9, 0.95]
+  LR_SCHEDULER:
+    TYPE: MultiStepLR
+    PARAM:
+      milestones: [50]
+      gamma: 0.5
+  CLIP_GRAD_PARAM:
+    max_norm: 5.0
+  NUM_EPOCHS: 200
+  CKPT_SAVE_DIR: checkpoints/TMAE_200
+  DATA:
+    DIR: datasets/PEMS04
+    BATCH_SIZE: 8
+    PREFETCH: False
+    SHUFFLE: True
+    NUM_WORKERS: 2
+    PIN_MEMORY: True
+  NULL_VAL: 0.0
+VAL:
+  INTERVAL: 1
+  DATA:
+    DIR: datasets/PEMS04
+    BATCH_SIZE: 8
+    PREFETCH: False
+    SHUFFLE: False
+    NUM_WORKERS: 2
+    PIN_MEMORY: True
+TEST:
+  INTERVAL: 1
+  DATA:
+    DIR: datasets/PEMS04
+    BATCH_SIZE: 8
+    PREFETCH: False
+    SHUFFLE: False
+    NUM_WORKERS: 2
+    PIN_MEMORY: True
+MD5: 41a91c03bec70d6c2ade7f9e08285f09

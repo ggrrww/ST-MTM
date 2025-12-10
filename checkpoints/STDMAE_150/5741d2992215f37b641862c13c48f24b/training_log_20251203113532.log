@@ -1,0 +1,41 @@
+2025-12-03 11:35:32,533 - easytorch-training - INFO - Initializing training.
+2025-12-03 11:35:32,533 - easytorch-training - INFO - Set clip grad, param: {'max_norm': 3.0}
+2025-12-03 11:35:32,533 - easytorch-training - INFO - Building training data loader.
+2025-12-03 11:35:32,602 - easytorch-training - INFO - Set optim: Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: False
+    lr: 0.002
+    maximize: False
+    weight_decay: 1e-05
+)
+2025-12-03 11:35:32,603 - easytorch-training - INFO - Set lr_scheduler: <torch.optim.lr_scheduler.MultiStepLR object at 0x7fb219b8fac0>
+2025-12-03 11:35:32,606 - easytorch-training - INFO - Initializing validation.
+2025-12-03 11:35:32,606 - easytorch-training - INFO - Building val data loader.
+2025-12-03 11:35:32,741 - easytorch-training - INFO - Epoch 1 / 150
+2025-12-03 11:35:35,344 - easytorch-training - ERROR - Traceback (most recent call last):
+  File "/root/miniconda3/lib/python3.10/site-packages/easytorch/launcher/launcher.py", line 30, in training_func
+    runner.train(cfg)
+  File "/root/miniconda3/lib/python3.10/site-packages/easytorch/core/runner.py", line 351, in train
+    loss = self.train_iters(epoch, iter_index, data)
+  File "/root/autodl-tmp/code/STD-MAE/basicts/runners/base_tsf_runner.py", line 237, in train_iters
+    forward_return = list(self.forward(data=data, epoch=epoch, iter_num=iter_num, train=True))
+  File "/root/autodl-tmp/code/STD-MAE/stdmae/stdmae_runner/stdmae_runner.py", line 66, in forward
+    prediction= self.model(history_data=history_data, long_history_data=long_history_data, future_data=None, batch_seen=iter_num, epoch=epoch)
+  File "/root/miniconda3/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/root/autodl-tmp/code/STD-MAE/stdmae/stdmae_arch/stdmae.py", line 59, in forward
+    hidden_states_s = self.smae(long_history_data[..., [0]])
+  File "/root/miniconda3/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/root/autodl-tmp/code/STD-MAE/stdmae/stdmae_arch/mask/mask_ori.py", line 221, in forward
+    hidden_states_full, _, _ = self.encoding(history_data, mask=False)
+  File "/root/autodl-tmp/code/STD-MAE/stdmae/stdmae_arch/mask/mask_ori.py", line 125, in encoding
+    hidden_states_unmasked = self.encoder_norm(hidden_states_unmasked).view(batch_size, num_nodes, self -1, self.embed_dim)# B, N, P, d
+TypeError: unsupported operand type(s) for -: 'Mask_ori' and 'int'
+
