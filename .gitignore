@@ -1,0 +1,14 @@
+datasets/**/*.pkl
+*.pt
+*.pth
+*.bin
+*.npz
+*.npy
+*.ckpt
+*.onnx
+logs/
+checkpoints/
+results/
+runs/
+__pycache__/
+*.pyc
